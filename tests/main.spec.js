@@ -79,9 +79,11 @@ describe('Spotify Wrapper', () => {
     });
 
     it('should return the correct JSON Data from the Promise', async () => {
-      promise.resolves({ body: 'json' });
+      promise.resolves({
+        json: async () => ({ body: 'json' }),
+      });
       const artists = await search('Incubus', 'artist');
-      expect(artists.resolveValue).to.be.eql({ body: 'json' });
+      expect(artists).to.be.eql({ body: 'json' });
     });
   });
 });
