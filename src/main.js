@@ -1,6 +1,8 @@
 /* global fetch */
-const TOKEN_API = 'BQDzuc3saTFgztXRR1E96lgQLd5ngMtvRHCHqfgX2Kmm0mhokXm0uShMcbmFzphHthNUgI6w63i'
-+ 'UmkI8sKmSkDIfwKVpWATMbH76Bh4uCWEoobb2gUKQ3dkcPR0zmYHivBkO-cl2';
+
+global.fetch = require('node-fetch');
+
+const TOKEN_API = 'BQBVMDlsPPn2VssQWE4pWtBoTlGHGJFT7dpNunTfTEQjfy5qHg9D4FRDSk6cjCmqmvwS9iDzcMydyVFOtwjfxboZgBILxzQ6AIgB-ucT5_Rd1wamyfPeLBLbxGhVJp4-jGc6wQML';
 
 const headers = {
   headers: {
@@ -13,10 +15,18 @@ const search = async (query, type) => {
   return response.json();
 };
 
-const searchAlbums = () => {};
-const searchArtists = () => {};
-const searchTracks = () => {};
-const searchPlaylists = () => {};
+const searchAlbums = query =>
+  search(query, 'album');
 
+const searchArtists = query =>
+  search(query, 'artist');
+
+const searchTracks = query =>
+  search(query, 'track');
+
+const searchPlaylists = query =>
+  search(query, 'playlist');
+
+search('Incubus', 'artist');
 export { search, searchAlbums, searchArtists, searchTracks, searchPlaylists };
 
