@@ -20,6 +20,5 @@ const searchTracks = query =>
 const searchPlaylists = query =>
   search(query, 'playlist');
 
-search('Incubus', 'artist');
 export { search, searchAlbums, searchArtists, searchTracks, searchPlaylists };
 
