@@ -1,5 +1,8 @@
 # Spotify Wrapper
 
+[![Build Status](https://travis-ci.org/Moraissz/spotify-wrapper.svg?branch=master)](https://travis-ci.org/Moraissz/spotify-wrapper)
+
+
 A wrapper to work with the [Spotify Web API](https://developer.spotify.com/web-api). This is a lib from the course JS-Tdd-course, with the teacher Willian Justen(https://github.com/willianjusten/)
 
 ## Browser Support
