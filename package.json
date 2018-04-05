@@ -1,21 +1,25 @@
 {
-  "name": "spotify-wrapper",
+  "name": "spotify-wrapper-jswithtddcourse",
   "version": "1.0.0",
   "description": "A wrapper to work with the Spotify Web API",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "clear": "rimraf lib",
     "build": "npm run clear &&  ./node_modules/.bin/babel --out-dir lib src",
-    "build:umd": "./node_modules/.bin/webpack --output-filename spotify-wrapper.umd.js",
-    "build:umd:min": "./node_modules/.bin/webpack --output-filename spotify-wrapper.umd.min.js -p",
+    "build:umd": "webpack --output-filename spotify-wrapper.umd.js",
+    "build:umd:min": "webpack --output-filename spotify-wrapper.umd.min.js -p",
     "build:all": "npm run build && npm run build:umd && npm run build:umd:min",
-    "lint": "./node_modules/.bin/eslint src/*.js",
+    "lint": "eslint src/*.js",
     "prepush": "npm run lint",
-    "test": "./node_modules/.bin/mocha tests/**/*.spec.js --require babel-register",
-    "test:tdd": "./node_modules/.bin/mocha tests/**/*.spec.js --require babel-register --watch",
+    "test": "mocha tests/**/*.spec.js --require babel-register",
+    "test:tdd": "mocha tests/**/*.spec.js --require babel-register --watch",
     "test:coverage": "nyc npm test",
     "coveralls": "npm run test:coverage && nyc report --reporter=text-lcov | coveralls"
   },
+  "files": [
+    "dist",
+    "lib"
+  ],
   "nyc": {
     "check-covarage": true,
     "functions": 80,
@@ -66,5 +70,10 @@
     "babel-polyfill": "^6.26.0",
     "node-fetch": "^2.1.1",
     "webpack": "^2.4.0"
+  },
+  "directories": {
+    "example": "examples",
+    "lib": "lib",
+    "test": "tests"
   }
 }
