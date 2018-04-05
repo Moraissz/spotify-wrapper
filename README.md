@@ -23,7 +23,7 @@ This library depends on [fetch](https://fetch.spec.whatwg.org/) to make requests
 ## Installing
 
 ```sh
-$ npm install spotify-wrapper --save
+$ npm install spotify-wrapper-jswithtddcourse --save
 ```
 ## How to use
 
