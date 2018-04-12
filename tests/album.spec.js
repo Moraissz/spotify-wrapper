@@ -3,7 +3,7 @@ import sinonChai from 'sinon-chai';
 import sinonStubPromise from 'sinon-stub-promise';
 import chai, { expect } from 'chai';
 import 'babel-polyfill';
-import { getAlbum, getAlbums, getAlbumTrack } from '../src/album';
+import SpotifyWrapper from '../src/index';
 
 sinonStubPromise(sinon);
 chai.use(sinonChai);
@@ -12,10 +12,14 @@ global.fetch = require('node-fetch');
 describe('Albums Tests', () => {
   let stubedFetch;
   let promise;
+  let spotify;
 
   beforeEach(() => {
     stubedFetch = sinon.stub(global, 'fetch');
     promise = stubedFetch.returnsPromise();
+    spotify = new SpotifyWrapper({
+      token: 'foo',
+    });
   });
 
   afterEach(() => {
@@ -24,92 +28,86 @@ describe('Albums Tests', () => {
 
   describe('smoke tests', () => {
     it('should exist the method getAlbum', () => {
-      expect(getAlbum).to.exist;
+      expect(spotify.album.getAlbum).to.exist;
     });
 
     it('should exist the method getAlbums', () => {
-      expect(getAlbums).to.exist;
+      expect(spotify.album.getAlbums).to.exist;
     });
 
     it('should exist the method getAlbumsTrack', () => {
-      expect(getAlbumTrack).to.exist;
+      expect(spotify.album.getTracks).to.exist;
     });
   });
   describe('getAlbum', () => {
     it('should call the fetch method', () => {
-      getAlbum();
+      spotify.album.getAlbum();
 
       expect(stubedFetch).to.have.been.calledOnce;
     });
 
     it('should call fetch with the correct url', () => {
-      getAlbum('4aawyAB9vmqN3uQ7FjRGTy');
+      spotify.album.getAlbum('4aawyAB9vmqN3uQ7FjRGTy');
 
       expect(stubedFetch).to.have.been
         .calledWith('https://api.spotify.com/v1/albums/4aawyAB9vmqN3uQ7FjRGTy');
 
-      getAlbum('4aawyAB9vmqN3uQ7FjRGTk');
+      spotify.album.getAlbum('4aawyAB9vmqN3uQ7FjRGTk');
 
       expect(stubedFetch).to.have.been
         .calledWith('https://api.spotify.com/v1/albums/4aawyAB9vmqN3uQ7FjRGTk');
     });
 
     it('should return the correct data from Promise', async () => {
-      promise.resolves({
-        json: async () => ({ album: 'name' }),
-      });
+      promise.resolves({ album: 'name' });
 
-      const album = await getAlbum('4aawyAB9vmqN3uQ7FjRGTy');
+      const album = spotify.album.getAlbum('4aawyAB9vmqN3uQ7FjRGTy');
 
-      expect(album).to.be.eql({ album: 'name' });
+      expect(album.resolveValue).to.be.eql({ album: 'name' });
     });
   });
   describe('getAlbums', () => {
     it('should call fetch method', () => {
-      getAlbums();
+      spotify.album.getAlbums();
 
       expect(stubedFetch).to.have.been.calledOnce;
     });
 
     it('should call fetch with the correct url', () => {
-      getAlbums(['4aawyAB9vmqN3uQ7FjRGTy', '4aawyAB9vmqN3uQ7FjRGTk']);
+      spotify.album.getAlbums(['4aawyAB9vmqN3uQ7FjRGTy', '4aawyAB9vmqN3uQ7FjRGTk']);
 
       expect(stubedFetch).to.have.been
         .calledWith('https://api.spotify.com/v1/albums/?ids=4aawyAB9vmqN3uQ7FjRGTy,4aawyAB9vmqN3uQ7FjRGTk');
     });
 
     it('should receive the correct JSON from promise', async () => {
-      promise.resolves({
-        json: async () => ({ album: 'name' }),
-      });
+      promise.resolves({ album: 'name' });
 
-      const album = await getAlbums(['4aawyAB9vmqN3uQ7FjRGTy', '4aawyAB9vmqN3uQ7FjRGTk']);
+      const album = spotify.album.getAlbums(['4aawyAB9vmqN3uQ7FjRGTy', '4aawyAB9vmqN3uQ7FjRGTk']);
 
-      expect(album).to.be.eql({ album: 'name' });
+      expect(album.resolveValue).to.be.eql({ album: 'name' });
     });
   });
   describe('getAlbumsTrack', () => {
     it('should call the fetch method', () => {
-      getAlbumTrack();
+      spotify.album.getTracks();
 
       expect(stubedFetch).to.have.been.calledOnce;
     });
 
     it('should call fetch with the correct url', () => {
-      getAlbumTrack('4aawyAB9vmqN3uQ7FjRGTy');
+      spotify.album.getTracks('4aawyAB9vmqN3uQ7FjRGTy');
 
       expect(stubedFetch).to.have.been
         .calledWith('https://api.spotify.com/v1/albums/4aawyAB9vmqN3uQ7FjRGTy/tracks');
     });
 
     it('should return the correct data from Promise', async () => {
-      promise.resolves({
-        json: async () => ({ album: 'name' }),
-      });
+      promise.resolves({ album: 'name' });
 
-      const album = await getAlbumTrack('4aawyAB9vmqN3uQ7FjRGTy');
+      const album = spotify.album.getTracks('4aawyAB9vmqN3uQ7FjRGTy');
 
-      expect(album).to.be.eql({ album: 'name' });
+      expect(album.resolveValue).to.be.eql({ album: 'name' });
     });
   });
 });
