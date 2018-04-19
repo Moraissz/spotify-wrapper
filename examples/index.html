@@ -12,7 +12,10 @@
   <div id="albums"></div>
   <script src="../dist/spotify-wrapper.umd.js"></script>
   <script>
-    const albums = spotifyWrapper.searchAlbums('The killers');
+    const spotify = new SpotifyWrapper({
+  token: 'BQCEGbV5TUI0pxcff5_D83sw-aClAZMJZswC9wFjA90iVZc7zmqyxVN_u4jQU2t3eXQTgpCPToPgKTQIecScIa6DvxRqRt36rMrIj4brbGJPoj4WapV5uBbL6RZe-7urN-iohkbU',
+});
+    const albums = spotify.search.albums('The killers');
     const albumsEl = document.getElementById('albums');
 
     albums

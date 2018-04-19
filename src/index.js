@@ -1,14 +1,7 @@
 /* global fetch */
-import {
-  search,
-  searchAlbums,
-  searchArtists,
-  searchTracks,
-  searchPlaylists,
-} from './search';
 
 import album from './album';
-
+import search from './search';
 import { API_URL } from './config';
 
 /* module.exports = {
@@ -27,6 +20,7 @@ export default class SpotifyWrapper {
     this.apiURL = options.apiURL || API_URL;
     this.token = options.token;
     this.album = album.bind(this)();
+    this.search = search.bind(this)();
   }
   request(url) {
     const headers = {
@@ -34,6 +28,6 @@ export default class SpotifyWrapper {
         Authorization: `'Bearer ${this.token}'`,
       },
     };
-    return fetch(url, headers);
+    return fetch(url, headers).then(data => data.json());
   }
 }
