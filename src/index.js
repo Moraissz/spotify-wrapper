@@ -4,17 +4,6 @@ import album from './album';
 import search from './search';
 import { API_URL } from './config';
 
-/* module.exports = {
-  search,
-  searchAlbums,
-  searchArtists,
-  searchTracks,
-  searchPlaylists,
-  getAlbum,
-  getAlbums,
-  getAlbumTrack,
-}; */
-
 export default class SpotifyWrapper {
   constructor(options) {
     this.apiURL = options.apiURL || API_URL;
