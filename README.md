@@ -147,7 +147,7 @@ spotify.search.tracks('Drive')
 **Example**
 
 ```js
-searchPlaylists('Happy Day')
+search.playlists('Happy Day')
   .then(data => {
     // do what you want with the data
   })
